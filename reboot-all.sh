@@ -13,7 +13,7 @@ do
 	  status=$(gcloud compute instances describe $instance --zone=$zone --format="value(status)" --quiet)
 	  gcloud compute instances stop $instance --zone=$zone --async --quiet
 	done
-	
+	sleep 40
 	for instance in  $(gcloud compute instances list --format="value(name)" --filter="status:terminated" --quiet)
 	do
 	echo "${GREEN}Starting instance :${NOCOLOR} $project $instance"
