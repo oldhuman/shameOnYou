@@ -1,22 +1,13 @@
 #!/bin/bash
-stop_instances (){
+delete_instances (){
 for instance in  $(gcloud compute instances list --filter="status=running" --format="value(name)" --quiet)
 do
   zone=$(gcloud compute instances list --filter="name=$instance" --format="value(zone)" --quiet)
   status=$(gcloud compute instances describe $instance --zone=$zone --format="value(status)" --quiet)
   created_on=$(gcloud compute instances describe $instance --zone=$zone --format="value(creationTimestamp.date('%Y-%m-%d'))" --quiet)
-  gcloud compute instances stop $instance --zone=$zone --async --quiet
-done
-}
-
-delete_old_instances (){
-for terminated_instance in  $(gcloud compute instances list --filter="status=terminated" --format="value(name)" --quiet)
-do
-  zone=$(gcloud compute instances list --filter="name=$terminated_instance" --format="value(zone)" --quiet)
-  status=$(gcloud compute instances describe $terminated_instance --zone=$zone --format="value(status)" --quiet)
-  created_on=$(gcloud compute instances describe $terminated_instance --zone=$zone --format="value(creationTimestamp.date('%Y-%m-%d'))" --quiet)
-  gcloud compute instances delete $terminated_instance --zone=$zone --quiet
-  echo "Delete old " $terminated_instance
+  if [[ $instance != *instance* ]]; then
+  gcloud compute instances delete $instance --zone=$zone --quiet
+  fi
 done
 }
 
@@ -25,13 +16,12 @@ gcloud beta compute --project=$1 instances create instance-$2 --zone=$3 --machin
 }
 
 instances_count=$(gcloud compute instances list --filter="status=running" --format="value(name)" | wc -l)
-
 #LOGIC
 for project in $(gcloud projects list  --format="value(project_id)")
 	do
 		gcloud config set project $project
 		echo "Project: " $project
-		delete_old_instances
+			delete_instances
 		i=1
 		for zone in "us-central1-b" "europe-north1-c" "us-east1-b"
 			do
