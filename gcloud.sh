@@ -36,7 +36,7 @@ for project in $(gcloud projects list  --format="value(project_id)")
 	do
 		gcloud config set project $project
 		echo "Project: " $project
-		delete_instances
+		#delete_instances
 		i=1
 		for zone in "us-central1-b" "europe-north1-c" "us-east1-b"
 			do
