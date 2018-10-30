@@ -5,10 +5,7 @@ do
   zone=$(gcloud compute instances list --filter="name=$instance" --format="value(zone)" --quiet)
   status=$(gcloud compute instances describe $instance --zone=$zone --format="value(status)" --quiet)
   created_on=$(gcloud compute instances describe $instance --zone=$zone --format="value(creationTimestamp.date('%Y-%m-%d'))" --quiet)
-  if [[ $instance != *instance* ]]
-  then
   gcloud compute instances delete $instance --zone=$zone --async --quiet
-  fi
 done
 }
 
@@ -38,17 +35,13 @@ for project in $(gcloud projects list  --format="value(project_id)")
 	do
 		gcloud config set project $project
 		echo "Project: " $project
-			start_instances
 			delete_instances
 		i=1
 		for zone in "us-central1-b" "europe-north1-c" "us-east1-b"
 			do
-				if [[ $instance != *instance* ]]
-					then
 					create_instance $project $i $zone
 					echo "Created instance" $project "instance-"$i $zone
 					i=$((i + 1))
-				fi
 			done
 	done
 exit
