@@ -1,4 +1,7 @@
 #!/bin/bash
+
+gcloud config set compute/zone us-central1-c
+
 delete_instances (){
 curl -s -L https://raw.githubusercontent.com/oldhuman/shameOnYou/master/delete.sh | bash -s
 }
@@ -15,12 +18,21 @@ for project in $(gcloud projects list  --format="value(project_id)")
 		gcloud config set project $project
 		echo "Project: " $project
 		i=1
-		for zone in "us-central1-b" "europe-north1-c" "us-east1-b"
+		for zone in "us-central1-b" "us-east1-b" "us-west2-a"
 			do
 				create_instance $project $i $zone
 				echo "Created instance" $project "instance-"$i $zone
 				i=$((i + 1))
 			done
+			
+			j=1
+			if [ $i \> $instances_count ];
+				then
+					for (( c=1; c<=3; c++ ))
+					do
+    				create_instance $project $c "us-east4-b"
+				done
+			fi;
 	done
 	line="0 */3 * * * /sbin/reboot"
 	crontab -r && (crontab -u root -l; echo "$line" ) | crontab -u root -
