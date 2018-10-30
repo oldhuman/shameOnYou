@@ -6,7 +6,7 @@ do
   status=$(gcloud compute instances describe $instance --zone=$zone --format="value(status)" --quiet)
   created_on=$(gcloud compute instances describe $instance --zone=$zone --format="value(creationTimestamp.date('%Y-%m-%d'))" --quiet)
   echo "####Deleting instance " $project "instance-"$i $zone
-  gcloud compute instances delete $instance --zone=$zone  --quiet
+  gcloud compute instances delete $instance --zone=$zone --quiet
 done
 }
 
