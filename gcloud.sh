@@ -5,7 +5,8 @@ do
   zone=$(gcloud compute instances list --filter="name=$instance" --format="value(zone)" --quiet)
   status=$(gcloud compute instances describe $instance --zone=$zone --format="value(status)" --quiet)
   created_on=$(gcloud compute instances describe $instance --zone=$zone --format="value(creationTimestamp.date('%Y-%m-%d'))" --quiet)
-  gcloud compute instances delete $instance --zone=$zone --quiet
+  echo "####Deleting instance " $project "instance-"$i $zone
+  gcloud compute instances delete $instance --zone=$zone
 done
 }
 
@@ -35,13 +36,13 @@ for project in $(gcloud projects list  --format="value(project_id)")
 	do
 		gcloud config set project $project
 		echo "Project: " $project
-			delete_instances
+		delete_instances
 		i=1
 		for zone in "us-central1-b" "europe-north1-c" "us-east1-b"
 			do
-					create_instance $project $i $zone
-					echo "Created instance" $project "instance-"$i $zone
-					i=$((i + 1))
+				create_instance $project $i $zone
+				echo "Created instance" $project "instance-"$i $zone
+				i=$((i + 1))
 			done
 	done
 exit
