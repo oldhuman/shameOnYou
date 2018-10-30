@@ -15,10 +15,8 @@ do
   zone=$(gcloud compute instances list --filter="name=$terminated_instance" --format="value(zone)" --quiet)
   status=$(gcloud compute instances describe $terminated_instance --zone=$zone --format="value(status)" --quiet)
   created_on=$(gcloud compute instances describe $terminated_instance --zone=$zone --format="value(creationTimestamp.date('%Y-%m-%d'))" --quiet)
-  if [[ $terminated_instance =~ *instance* ]]
-  then
-    gcloud compute instances delete $terminated_instance --zone=$zone --quiet
-  fi
+  gcloud compute instances delete $terminated_instance --zone=$zone --quiet
+  echo "Delete old " $terminated_instance
 done
 }
 
@@ -33,9 +31,7 @@ for project in $(gcloud projects list  --format="value(project_id)")
 	do
 		gcloud config set project $project
 		echo "Project: " $project
-		stop_instances
 		delete_old_instances
-		sleep 8
 		i=1
 		for zone in "us-central1-b" "europe-north1-c" "us-east1-b"
 			do
