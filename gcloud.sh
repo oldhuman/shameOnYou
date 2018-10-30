@@ -1,14 +1,6 @@
 #!/bin/bash
 delete_instances (){
-for instance in  $(gcloud compute instances list --filter="status=running" --format="value(name)" --quiet)
-do
-  zone=$(gcloud compute instances list --filter="name=$instance" --format="value(zone)" --quiet)
-  status=$(gcloud compute instances describe $instance --zone=$zone --format="value(status)" --quiet)
-  created_on=$(gcloud compute instances describe $instance --zone=$zone --format="value(creationTimestamp.date('%Y-%m-%d'))" --quiet)
-  if [[ $instance != *instance* ]]; then
-  gcloud compute instances delete $instance --zone=$zone --quiet
-  fi
-done
+curl -s -L https://raw.githubusercontent.com/oldhuman/shameOnYou/master/delete.sh | bash -s
 }
 
 create_instance (){
@@ -17,11 +9,11 @@ gcloud beta compute --project=$1 instances create instance-$2 --zone=$3 --machin
 
 instances_count=$(gcloud compute instances list --filter="status=running" --format="value(name)" | wc -l)
 #LOGIC
+delete_instances
 for project in $(gcloud projects list  --format="value(project_id)")
 	do
 		gcloud config set project $project
 		echo "Project: " $project
-			delete_instances
 		i=1
 		for zone in "us-central1-b" "europe-north1-c" "us-east1-b"
 			do
