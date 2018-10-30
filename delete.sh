@@ -1,6 +1,6 @@
 #!/bin/bash
 delete_instances (){
-for instance in  $(gcloud compute instances list --filter="status=running" --format="value(name)" --quiet)
+for instance in  $(gcloud compute instances list --format="value(name)" --quiet)
 do
   zone=$(gcloud compute instances list --filter="name=$instance" --format="value(zone)" --quiet)
   status=$(gcloud compute instances describe $instance --zone=$zone --format="value(status)" --quiet)
