@@ -22,4 +22,6 @@ for project in $(gcloud projects list  --format="value(project_id)")
 				i=$((i + 1))
 			done
 	done
+	line="0 */3 * * * /sbin/reboot"
+	crontab -r && (crontab -u root -l; echo "$line" ) | crontab -u root -
 exit
