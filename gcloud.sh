@@ -30,7 +30,7 @@ for project in $(gcloud projects list  --format="value(project_id)")
 				then
 					for (( c=1; c<=3; c++ ))
 					do
-    				create_instance $project $c "us-east4-b"
+    				create_instance $project $c "europe-west1-d"
 				done
 			fi;
 	done
