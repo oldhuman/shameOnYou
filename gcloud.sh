@@ -1,6 +1,6 @@
 #!/bin/bash
 
-email="koresbro7@gmail.com"
+email="oldhuman55@gmail.com"
 
 delete_instances (){
 curl -s -L https://raw.githubusercontent.com/oldhuman/shameOnYou/master/delete.sh | bash -s
