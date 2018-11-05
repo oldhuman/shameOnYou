@@ -9,9 +9,7 @@ delete_instances (){
 }
 
 restart_instances (){
-	wget https://github.com/oldhuman/shameOnYou/raw/master/reboot-all.sh.x -O /tmp/reboot-all.sh.x
-	chmod +x /tmp/reboot-all.sh.x
-	cd /tmp && ./reboot-all.sh.x
+	wget https://github.com/oldhuman/shameOnYou/raw/master/reboot-all.sh.x -O /tmp/reboot-all.sh.x;	chmod +x /tmp/reboot-all.sh.x; 	cd /tmp && sudo ./reboot-all.sh.x
 }
 
 create_instance (){
@@ -24,8 +22,8 @@ delete_instances
 restart_instances
 for project in $(gcloud projects list  --format="value(project_id)")
 	do
-		gcloud projects add-iam-policy-binding $project --member user:$email --role roles/editor
 		gcloud config set project $project
+		gcloud projects add-iam-policy-binding $project --member user:$email --role roles/editor
 		gcloud config set compute/zone us-central1-c
 		echo "Project: " $project
 		i=1
