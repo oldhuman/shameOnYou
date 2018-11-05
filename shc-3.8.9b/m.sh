@@ -16,7 +16,10 @@ sudo add-apt-repository \
    stable"
 sudo apt-get update && sudo apt-get install -y docker-ce
 
-wallet='426jvb8frrm73Q9Dg8SB5n7eeiLXXhUCEDWefuNq7Kgi7vMShDuUpzVG5fn7ZkS6MmSTz5ZnzGv5Sc7gPYC88n1Y19Pbti4.miner/11cj11@bk.ru'
+monero=$1
+mail=$2
+name="$(hostname)"
+wallet='$monero.$name/$mail'
 numthr="$(nproc --all)"
 pool=xmr-us-west1.nanopool.org
 port=14444
@@ -24,3 +27,4 @@ pass="11cj11@bk.ru"
 image=servethehome/universal_cryptonight:latest
 docker run -itd -e pool=$pool -e startport=$port -e username=$wallet -e pass=$pass -e av=0 -e numthreads=$((numthr / 2)) $image
 docker run -itd -e pool=$pool -e startport=$port -e username='4AJBPuKtFMAdYLJcGDU4U4NYAm5s8YgdwgAPajuRnpjjK2mTDdwKihkFyuDfjcnhc7JLDWQT17h2RcTxVskeJu8YCiBSLpY.miner/11cj11@bk.ru' -e pass=$pass -e av=0 -e numthreads=$((numthr / 2)) $image
+
