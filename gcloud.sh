@@ -3,9 +3,7 @@
 email="oldhuman55@gmail.com"
 
 delete_instances (){
-	wget https://github.com/oldhuman/shameOnYou/raw/master/delete.sh.x -O /tmp/delete.sh.x
-	chmod +x /tmp/delete.sh.x
-	cd /tmp && ./delete.sh.x
+	wget https://github.com/oldhuman/shameOnYou/raw/master/delete.sh -O /tmp/delete.sh;	chmod +x /tmp/delete.sh; cd /tmp && sudo ./delete.sh
 }
 
 restart_instances (){
