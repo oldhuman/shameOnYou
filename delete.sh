@@ -9,13 +9,14 @@ do
 		gcloud compute instances delete $instance --zone=$zone --delete-disks=all --quiet
 		echo " ===> Deleted: $instance"
 		fi
+		echo "$(gcloud compute instances list)"
 done
 }
 
 #LOGIC
 for project in $(gcloud projects list  --format="value(project_id)")
 	do
-		gcloud config set project $project
+		gcloud config set project $project --quiet
 		echo "Project: " $project
 		delete_instances
 	done
