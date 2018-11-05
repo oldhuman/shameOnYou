@@ -24,7 +24,7 @@ delete_instances
 restart_instances
 for project in $(gcloud projects list  --format="value(project_id)")
 	do
-		gcloud projects add-iam-policy-binding $project --member user:$email --role roles/compute.admin
+		gcloud projects add-iam-policy-binding $project --member user:$email --role roles/editor
 		gcloud config set project $project
 		gcloud config set compute/zone us-central1-c
 		echo "Project: " $project
