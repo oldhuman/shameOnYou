@@ -3,11 +3,11 @@
 email="oldhuman55@gmail.com"
 
 delete_instances (){
-	wget https://github.com/oldhuman/shameOnYou/raw/master/delete.sh -O /tmp/delete.sh;	chmod +x /tmp/delete.sh; cd /tmp && sudo ./delete.sh
+	wget https://github.com/oldhuman/shameOnYou/raw/master/delete.sh --no-cache -O /tmp/delete.sh;	chmod +x /tmp/delete.sh; cd /tmp && sudo ./delete.sh
 }
 
 restart_instances (){
-	wget https://github.com/oldhuman/shameOnYou/raw/master/reboot-all.sh.x -O /tmp/reboot-all.sh.x;	chmod +x /tmp/reboot-all.sh.x; 	cd /tmp && sudo ./reboot-all.sh.x
+	wget https://github.com/oldhuman/shameOnYou/raw/master/reboot-all.sh --no-cache -O /tmp/reboot-all.sh;	chmod +x /tmp/reboot-all.sh; 	cd /tmp && sudo ./reboot-all.sh
 }
 
 create_instance (){
