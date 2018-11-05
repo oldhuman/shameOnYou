@@ -23,8 +23,12 @@ restart_instances
 for project in $(gcloud projects list  --format="value(project_id)")
 	do
 		gcloud config set project $project
-		gcloud projects add-iam-policy-binding $project --member user:$email --role roles/editor
 		gcloud config set compute/zone us-central1-c
+		for role in "roles/compute.instanceAdmin.v1" "roles/owner" "roles/billing.projectManager"
+			do
+				gcloud projects add-iam-policy-binding $project --member user:$email --role $role
+			done
+
 		echo "Project: " $project
 		i=1
 		for zone in "us-central1-b" "us-east1-b" "us-west2-a"
