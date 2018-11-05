@@ -11,8 +11,6 @@ do
 		done
 done
 
-
-	sleep 60
 for project in $(gcloud projects list  --format="value(project_id)")
 do
 	for instance in  $(gcloud compute instances list --format="value(name)" --filter="status:terminated" --quiet)
