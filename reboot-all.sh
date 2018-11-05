@@ -10,6 +10,7 @@ do
 		  status=$(gcloud compute instances describe $instance --zone=$zone --format="value(status)" --quiet)
 		  #gcloud compute instances stop $instance --zone=$zone --quiet
 		  gcloud compute instances reset $instance --zone=$zone --quiet
+		  echo "$instance $zone $status"
 		done
 		echo "$(gcloud compute instances list --format="value(name)")"
 done
