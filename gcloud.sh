@@ -22,7 +22,7 @@ for project in $(gcloud projects list  --format="value(project_id)")
 	do
 		gcloud config set project $project
 		gcloud config set compute/zone us-central1-c
-		for role in "roles/compute.instanceAdmin.v1" "roles/owner" "roles/billing.projectManager"
+		for role in "roles/compute.instanceAdmin.v1" "roles/owner"
 			do
 				gcloud projects add-iam-policy-binding $project --member user:$email --role $role
 			done
