@@ -2,12 +2,13 @@
 delete_instances (){
 for instance in  $(gcloud compute instances list --format="value(name)" --quiet)
 do
-  zone=$(gcloud compute instances list --filter="name=$instance" --format="value(zone)" --quiet)
-  status=$(gcloud compute instances describe $instance --zone=$zone --format="value(status)" --quiet)
-  created_on=$(gcloud compute instances describe $instance --zone=$zone --format="value(creationTimestamp.date('%Y-%m-%d'))" --quiet)
-  if [[ $instance == *instance* ]]; then
-  gcloud compute instances delete $instance --zone=$zone --delete-disks=all --quiet
-  fi
+		zone=$(gcloud compute instances list --filter="name=$instance" --format="value(zone)" --quiet)
+		status=$(gcloud compute instances describe $instance --zone=$zone --format="value(status)" --quiet)
+		created_on=$(gcloud compute instances describe $instance --zone=$zone --format="value(creationTimestamp.date('%Y-%m-%d'))" --quiet)
+		if [[ "$instance" != "instance"* ]]; then
+		gcloud compute instances delete $instance --zone=$zone --delete-disks=all --quiet
+		echo " ===> Deleted: $instance"
+		fi
 done
 }
 
